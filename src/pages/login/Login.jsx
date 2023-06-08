@@ -3,6 +3,7 @@ import logo from "./logo.svg";
 import google from "./google.svg";
 import facebook from "./facebook.svg";
 import { useNavigate } from "react-router-dom";
+import { CircularProgress } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { BASE_URL } from "../../helper";
@@ -10,6 +11,7 @@ const Login = ({onFormSwitch }) => {
   // form data
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
+  const [loaded,setloaded] = useState(true);
   const handlechangeemail = (e) => {
     setemail(e.target.value);
   };
@@ -49,6 +51,7 @@ const Login = ({onFormSwitch }) => {
     //   });
 
     try {
+      setloaded(false);
       const response = await axios.post(BASE_URL + "/login", {
         email,
         password,
@@ -57,6 +60,7 @@ const Login = ({onFormSwitch }) => {
       const token = response.data.token;
       localStorage.setItem("hello", email1);
       localStorage.setItem("token",token)
+      setloaded(true);
       navigate("/Profile_page");
     } catch (error) {
       console.log(error);
@@ -64,6 +68,7 @@ const Login = ({onFormSwitch }) => {
     // });
   };
   return (
+    loaded?(
     <div className="total">
       <div className="details">
         <div className="img">
@@ -115,8 +120,17 @@ const Login = ({onFormSwitch }) => {
           </button>
         </div>
       </div>
-    </div>
-  );
+    </div>):(<CircularProgress
+      size={70}
+      sx={{
+        position: "fixed",
+        left: "50%",
+        top: "50%",
+        transform: "translate(-50%, -50%)",
+        zIndex: 2,
+      }}
+    />)
+  )
 };
 // onClick={() => onFormSwitch("Signup")}
 export default Login;

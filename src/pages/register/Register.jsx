@@ -45,9 +45,10 @@ const Signup = (props) => {
     const [response, setResponse] = useState(null)
 
     const sumbitForm = (e) => {
+      console.log("hiiii");
       e.preventDefault()
       console.log(person);
-       axios.post(BASE_URL+'/signup', person)
+      axios.post(BASE_URL+'/signup', person)
       .then((response) => {
         // setResponse(response.data)
         console.log(response.data)
@@ -64,6 +65,7 @@ const Signup = (props) => {
           return {...prev, [name]: value}
         })
     }
+    console.log("ggiv")
   return (
     <div className="total">
       <div className="details">
@@ -125,7 +127,7 @@ const Signup = (props) => {
               required
               // onfocus="this.placeholder = ''"
             />
-            <input type="submit" value="Sign-up" className="submit" disabled={!person.first_name||person.second_name||!person.age||!person.password|!person.email||!person.username||!person.contact}/>
+            <input type="submit" value="Sign-up" className="submit" />
           </form>
         </div>
         <div className="sign-up">
