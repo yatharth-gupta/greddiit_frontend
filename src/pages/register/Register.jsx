@@ -45,17 +45,15 @@ const Signup = (props) => {
     const [response, setResponse] = useState(null)
 
     const sumbitForm = (e) => {
-      console.log("hiiii");
       e.preventDefault()
       console.log(person);
       axios.post(BASE_URL+'/signup', person)
       .then((response) => {
-        // setResponse(response.data)
-        console.log(response.data)
-        props.onFormSwitch("Login");
-        naviagte("/")
+          props.onFormSwitch("Login");
+          naviagte("/")
       })
       .catch(function (error) {
+        alert("User already exists");
         console.log(error);
       });
     }
@@ -65,7 +63,6 @@ const Signup = (props) => {
           return {...prev, [name]: value}
         })
     }
-    console.log("ggiv")
   return (
     <div className="total">
       <div className="details">
